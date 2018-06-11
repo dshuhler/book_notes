@@ -45,3 +45,22 @@ var status = cruise.status || "unknown";
 ```JavaScript
 var status = cruise.status && cruise.status.code; //undefined
 ```
+- If you assign a property to an object and it does not already exist on that object, it will be added to the object.
+- Objects are passed by reference
+- All objects have a prototype from which it can inherit properties.
+  - Objects created from object literals are linked to `Object.protoype`
+  - When you create an object, you can specify what object should be its prototype
+  - Prototype link is used only in retrieval. If you try to retrieve a property value from an object, and it's not there, JS attempts to retrieve the property from the prototype. If it's not there either, it goes up the rest of the prototype chain. Updates update only the actual object and do not touch any prototypes
+- `delete` can be used to remove a property from an object (will not touch prototypes), this can sometimes allow prototype properties to "shine through"
+
+Possible solution to global variable problem: create one single global object and use it as a container - creating a kind of namespace
+
+### Functions
+Functions are objects that are linked to `Function.protoype`. They can be used like any other value, stored in variables or arrays, returned from functions, etc. They are special because they can be *invoked*
+
+Function Literal:
+```JavaScript
+var add = function(a, b) {
+  return a + b
+}
+```
