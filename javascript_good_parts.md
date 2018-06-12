@@ -109,3 +109,33 @@ myObject.double = function () {
 
 myObject.double();
 ```
+
+#### Function Invocation Pattern
+Javascript uses **prototypal** inheritance. Objects inherit directly from other objects, there are no classes. It's weird, and alot of devs aren't used to it, and it's even more confusing since JS *looks* like a classical language with regards to syntax.
+
+If a function is invoked using `new`, a new object will be created with a hidden link to the value of the function's `prototype` member, and `this` will be bound to that new object.
+
+```JavaScript
+var Quo = function (string) {
+  this.status = string;
+};
+
+Quo.prototype.get_status = function () {
+  return this.status;
+};
+
+var myQuo = new Quo("dazed and confused");
+
+document.writeln('status: ' + myQuo.get_status());
+```
+Functions that are intended to be used with `new` are called constructors and by convention are kept in variables that start with an upper case letter. This is important because if you call a constructor with `new`, bad things can happen.
+
+**It is not recommended to use this style of constructor**
+
+
+
+
+#### Bonus Arguments!
+The `arguments` parameter is available to every function. It contains an array of all the arguments passed to the function, including any that were extra and did not get bound to the named arguments. This allows varargs.
+
+**this is not a particularly useful pattern and there is a better way to do this**
