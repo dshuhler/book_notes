@@ -62,5 +62,50 @@ Function Literal:
 ```JavaScript
 var add = function(a, b) {
   return a + b
+};
+```
+
+Functions receives 2 addition params beside the obvious.
+1. `this` - value is determined by "invocation pattern"
+2. `arguments`
+
+If you pass too few params into a function, the unfilled params will be `undefined`. If you pass too many params into a function, the extra arguments will be ignored.
+
+#### Method Invocation Pattern
+**method**: when a function is stored as a property of an object
+
+```JavaScript
+var myObject = {
+  value: 0,
+  myFunction: function(replacement) {
+    this.value = replacement;
+  };
 }
+
+myObject.myFunction(1);
+```
+In this context, `myFunction` is able to access `myObject` using `this` and can read or modify it.
+
+#### Function Invocation Pattern
+Just a plain old function that is not the property of an object.
+
+```JavaScript
+var sum = add(3, 5);
+```
+In this context, `this` is bound to the **global object** which was a really bad idea.
+
+The problem is that this prevents you from accessing the calling function's `this` when you want to do something. There is a workaround:
+
+```JavaScript
+myObject.double = function () {
+  var that = this; //inner function will be able to access "that"
+
+  var helper = function () {
+    that.value = add(that.value, that.value);
+  };
+
+  helper();
+};
+
+myObject.double();
 ```
